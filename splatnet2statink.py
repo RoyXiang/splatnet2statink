@@ -30,7 +30,7 @@ if getattr(sys, 'frozen', False):
 	app_path = os.path.dirname(sys.executable)
 elif __file__:
 	app_path = os.path.dirname(__file__)
-config_path = os.path.join(app_path, "config.txt")
+config_path = os.path.join(app_path, "data", "config.txt")
 
 try:
 	config_file = open(config_path, "r")
