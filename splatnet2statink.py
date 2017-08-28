@@ -769,7 +769,11 @@ def post_battle(i, results, s_flag, t_flag, m_flag, sendgears, debug, ismonitor=
 	#############
 	## PAYLOAD ##
 	#############
-	payload = {'agent': 'splatnet2statink', 'agent_version': A_VERSION, 'automated': 'yes'}
+	payload = {
+		'agent': 'splatnet2statink',
+		'agent_version': '%s-mod' % A_VERSION,
+		'automated': 'yes'
+	}
 	agent_variables = {'upload_mode': "Monitoring" if ismonitor else "Manual"}
 	payload["agent_variables"] = agent_variables
 	bn = results[i]["battle_number"]
