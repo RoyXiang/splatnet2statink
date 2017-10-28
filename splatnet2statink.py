@@ -216,48 +216,8 @@ def set_language():
 			write_config(config_data)
 	return
 
-def check_for_updates():
-	'''Checks the version of the script against the latest version in the repo and updates dbs.py.'''
-
-	latest_script = requests.get("https://raw.githubusercontent.com/frozenpandaman/splatnet2statink/master/splatnet2statink.py")
-	new_version = re.search(r'= "([\d.]*)"', latest_script.text).group(1)
-	try:
-		update_available = StrictVersion(new_version) != StrictVersion(A_VERSION)
-		if update_available:
-			print("There is a new version (v{}) available.".format(new_version), end='')
-			if os.path.isdir(".git"): # git user
-				update_now = input("\nWould you like to update now? [Y/n] ")
-				if update_now == "" or update_now[0].lower() == "y":
-					FNULL = open(os.devnull, "w")
-					call(["git", "checkout", "."], stdout=FNULL, stderr=FNULL)
-					call(["git", "checkout", "master"], stdout=FNULL, stderr=FNULL)
-					call(["git", "pull"], stdout=FNULL, stderr=FNULL)
-					print("Successfully updated to v{}. Please restart splatnet2statink.".format(new_version))
-					return True
-				else:
-					print("Remember to update later with \"git pull\" to get the latest version.\n")
-			else: # non-git user
-				print(" Visit the site below to update:\nhttps://github.com/frozenpandaman/splatnet2statink\n")
-				# dbs_freshness = time.time() - os.path.getmtime("dbs.py")
-				if getattr(sys, 'frozen', False): # bundled
-					pass
-				else:
-					latest_db = requests.get("https://raw.githubusercontent.com/frozenpandaman/splatnet2statink/master/dbs.py")
-					try:
-						if latest_db.status_code == 200: # require proper response from github
-							local_db = open("dbs.py", "w")
-							local_db.write(latest_db.text)
-							local_db.close()
-					except: # if we can't open the file
-						pass # then we don't modify the database
-	except: # if there's a problem connecting to github
-		pass # then we assume there's no update available
-
 def main():
 	'''I/O and setup.'''
-
-	if check_for_updates():
-		sys.exit(0)
 
 	check_statink_key()
 	set_language()
