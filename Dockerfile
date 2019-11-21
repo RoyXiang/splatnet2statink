@@ -20,5 +20,3 @@ COPY . /opt/splatnet2statink
 WORKDIR /opt/splatnet2statink
 
 VOLUME /opt/splatnet2statink/data
-
-CMD ["python", "splatnet2statink.py", "-M"]
