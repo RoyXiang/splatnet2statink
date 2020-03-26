@@ -13,7 +13,7 @@ RUN set -ex \
                 py-pillow \
                 py-requests
 
-USER 32767:32767
+USER 1000:1000
 
 COPY . /opt/splatnet2statink
 
