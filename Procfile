@@ -1,1 +1,1 @@
-worker: python splatnet2statink.py -M
+worker: python3 splatnet2statink.py -M
