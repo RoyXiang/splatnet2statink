@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM alpine:latest
 MAINTAINER Roy Xiang <developer@royxiang.me>
 
 ENV LANG C.UTF-8
@@ -7,11 +7,11 @@ RUN apk add --update --no-cache ca-certificates
 
 RUN set -ex \
         && apk add --no-cache --virtual .run-deps \
-                python \
-                py-future \
-                py-msgpack \
-                py-pillow \
-                py-requests
+                python3 \
+                py3-future \
+                py3-msgpack \
+                py3-pillow \
+                py3-requests
 
 USER 1000:1000
 
